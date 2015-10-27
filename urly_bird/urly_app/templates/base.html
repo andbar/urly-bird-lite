@@ -19,20 +19,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'bookmark_list' %}">Bookmark Maker</a>
+      <a class="navbar-brand" href="{% url 'bookmark_list' %}">Best Bookmarks</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="{% url 'bookmark_list' %}">All Bookmarks</a></li>
-          {% comment %}<li><a href="{% url 'top_tweet_list' %}">Top Tweets</a></li>{% endcomment %}
           {% if not request.user.id %}
               <li><a href="{% url 'login' %}">Login</a></li>
           {% else %}
+              <li><a href="{% url 'user_bookmark_list' request.user.id %}">{{ request.user.username }}'s Bookmarks</a></li>
               <li><a href="{% url 'bookmark_create' %}">Create Bookmark</a></li>
               <li><a href="{% url 'logout' %}?next=/">Logout</a></li>
-              <li><a href="">{{ request.user.username }}</a></li>
           {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->

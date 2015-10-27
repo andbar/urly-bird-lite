@@ -102,4 +102,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = 'user_index'

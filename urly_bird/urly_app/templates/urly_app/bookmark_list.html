@@ -11,10 +11,10 @@
             </a>
 
             {% endcomment %}
-        {{ bookmark.title }}
             <form action="{% url 'click_shortcut' bookmark.shortcut %}" method="post">
                 {% csrf_token %}
-                <input type="submit" value={{ bookmark.shortcut }}/>
+                Name: {{ bookmark.title }} -------- Shortcut: {{ bookmark.shortcut }}
+                <input type="submit" value="Go!"/>
             </form>
         {% comment %}
         <blockquote>
@@ -23,21 +23,13 @@
             {% endfor %}
         </blockquote>
         {% endcomment %}
-        {% comment %}
-            {% if request.user.id %}
-                {% if request.user not in tweet.favorites_users %}
-                    <form action="{% url 'favorite_tweet' tweet.id %}" method="post">
+            {% if request.user.id == bookmark.creator.id %}
+                    <form action="{% url 'delete_bookmark' bookmark.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" value="+"/>
+                        <input type="submit" value="Delete"/>
                     </form>
-                {% else %}
-                    <form action="{% url 'unfavorite_tweet' tweet.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="-"/>
-                    </form>
-                {% endif %}
             {% endif %}
-          {% endcomment %}
+            <br>
         </div>
 
     {% endfor %}
