@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Bookmark Details</h1>
+    <div>{{ object.title }}</div>
+
+    <div><a href="{% url 'user_bookmark_list' object.creator.id %}">{{ object.creator }}</a></div>
+{% endblock %}

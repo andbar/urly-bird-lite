@@ -3,11 +3,15 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView, CreateView, View
+from django.views.generic import ListView, CreateView, View, DetailView
 from urly_app.models import Bookmark, Click
 
 
 class BookmarkList(ListView):
+    model = Bookmark
+
+
+class BookmarkDetail(DetailView):
     model = Bookmark
 
 

@@ -5,24 +5,11 @@
     <h1>Bookmarks</h1>
     {% for bookmark in object_list %}
         <div>
-           {% comment %}
-            <a href="{% url 'tweet_detail' tweet.id %}">
-
-            </a>
-
-            {% endcomment %}
             <form action="{% url 'click_shortcut' bookmark.shortcut %}" method="post">
                 {% csrf_token %}
-                Name: {{ bookmark.title }} -------- Shortcut: {{ bookmark.shortcut }}
-                <input type="submit" value="Go!"/>
+                Name: <a href="{% url 'bookmark_detail' bookmark.id %}">{{ bookmark.title }}</a> -------- Shortcut:
+                <input type="submit" value={{ bookmark.shortcut }}/>
             </form>
-        {% comment %}
-        <blockquote>
-            {% for user in tweet.favorites_users %}
-                <div>{{ user.username }}</div>
-            {% endfor %}
-        </blockquote>
-        {% endcomment %}
             {% if request.user.id == bookmark.creator.id %}
                     <form action="{% url 'delete_bookmark' bookmark.id %}" method="post">
                         {% csrf_token %}

@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from urly_app.views import BookmarkList, UserBookmarkList, BookmarkCreate, ClickShortcut, UserIndex, BookmarkDelete
+from urly_app.views import BookmarkList, UserBookmarkList, BookmarkCreate, ClickShortcut, UserIndex, BookmarkDelete, \
+    BookmarkDetail
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
@@ -26,5 +27,6 @@ urlpatterns = [
     url(r'^create/$', login_required(BookmarkCreate.as_view()), name="bookmark_create"),
     url(r'^c/(?P<bookmark_shortcut>.+)/$', ClickShortcut.as_view(), name="click_shortcut"),
     url(r'^index/$', UserIndex.as_view(), name="user_index"),
-    url(r'^delete/(?P<bookmark_id>\d+)/$', BookmarkDelete.as_view(), name="delete_bookmark")
+    url(r'^delete/(?P<bookmark_id>\d+)/$', BookmarkDelete.as_view(), name="delete_bookmark"),
+    url(r'^(?P<pk>\d+)/$', BookmarkDetail.as_view(), name="bookmark_detail"),
 ]
