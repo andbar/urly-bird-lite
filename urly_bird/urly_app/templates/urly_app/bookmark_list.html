@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1>Bookmarks</h1>
+    {% for bookmark in object_list %}
+        <div>
+           {% comment %}
+            <a href="{% url 'tweet_detail' tweet.id %}">
+
+            </a>
+
+            {% endcomment %}
+        {{ bookmark.title }}
+            <form action="{% url 'click_shortcut' bookmark.shortcut %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value={{ bookmark.shortcut }}/>
+            </form>
+        {% comment %}
+        <blockquote>
+            {% for user in tweet.favorites_users %}
+                <div>{{ user.username }}</div>
+            {% endfor %}
+        </blockquote>
+        {% endcomment %}
+        {% comment %}
+            {% if request.user.id %}
+                {% if request.user not in tweet.favorites_users %}
+                    <form action="{% url 'favorite_tweet' tweet.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="+"/>
+                    </form>
+                {% else %}
+                    <form action="{% url 'unfavorite_tweet' tweet.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="-"/>
+                    </form>
+                {% endif %}
+            {% endif %}
+          {% endcomment %}
+        </div>
+
+    {% endfor %}
+{% endblock %}
