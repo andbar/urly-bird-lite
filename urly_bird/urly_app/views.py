@@ -1,5 +1,6 @@
 import hashlib
 import random
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -28,12 +29,8 @@ class UserBookmarkList(ListView):
 
 class UserCreate(CreateView):
     model = User
-    fields = ["username", "password"]
     success_url = "/"
-
-    def form_valid(self, form):
-        model = form.save(commit=False)
-        return super().form_valid(form)
+    form_class = UserCreationForm
 
 
 class BookmarkCreate(CreateView):
