@@ -17,16 +17,17 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from urly_app.views import BookmarkList, UserBookmarkList, BookmarkCreate, ClickShortcut, UserIndex, BookmarkDelete, \
-    BookmarkDetail
+    BookmarkDetail, BookmarkUpdate
 
 urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', BookmarkList.as_view(), name="bookmark_list"),
     url(r'^user/(?P<pk>\d+)/$', UserBookmarkList.as_view(), name="user_bookmark_list"),
-    url(r'^create/$', login_required(BookmarkCreate.as_view()), name="bookmark_create"),
+    url(r'^createbookmark/$', login_required(BookmarkCreate.as_view()), name="bookmark_create"),
     url(r'^c/(?P<bookmark_shortcut>.+)/$', ClickShortcut.as_view(), name="click_shortcut"),
     url(r'^index/$', UserIndex.as_view(), name="user_index"),
     url(r'^delete/(?P<bookmark_id>\d+)/$', BookmarkDelete.as_view(), name="delete_bookmark"),
     url(r'^(?P<pk>\d+)/$', BookmarkDetail.as_view(), name="bookmark_detail"),
+    url(r'^updatebookmark/(?P<pk>\d+)/$', login_required(BookmarkUpdate.as_view()), name="update_bookmark"),
 ]

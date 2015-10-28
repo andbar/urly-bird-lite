@@ -11,10 +11,13 @@
                 <input type="submit" value={{ bookmark.shortcut }}/>
             </form>
             {% if request.user.id == bookmark.creator.id %}
-                    <form action="{% url 'delete_bookmark' bookmark.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete"/>
-                    </form>
+                <form action="{% url 'update_bookmark' bookmark.id %}" method="get">
+                    <input type="submit" value="Edit"/>
+                </form>
+                <form action="{% url 'delete_bookmark' bookmark.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete"/>
+                </form>
             {% endif %}
             <br>
         </div>
