@@ -4,13 +4,19 @@
 {% block content %}
     <h1>Bookmarks</h1>
     {% for bookmark in object_list %}
-        <div>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel_title">
             <form action="{% url 'click_shortcut' bookmark.shortcut %}" method="post">
                 {% csrf_token %}
-                Name: <a href="{% url 'bookmark_detail' bookmark.id %}">{{ bookmark.title }}</a> -------- Shortcut:
+                Title: <a href="{% url 'bookmark_detail' bookmark.id %}">{{ bookmark.title }}</a> -------- Shortcut:
                 <input type="submit" value={{ bookmark.shortcut }}/>
             </form>
+            </h5>
+        </div>
+        <div class="panel-body">
             {% if request.user.id == bookmark.creator.id %}
+                <div class="button-group">
                 <form action="{% url 'update_bookmark' bookmark.id %}" method="get">
                     <input type="submit" value="Edit"/>
                 </form>
@@ -18,8 +24,9 @@
                     {% csrf_token %}
                     <input type="submit" value="Delete"/>
                 </form>
+                </div>
             {% endif %}
-            <br>
+        </div>
         </div>
 
     {% endfor %}

@@ -5,7 +5,7 @@ from django.db import models
 
 class Bookmark(models.Model):
     creator = models.ForeignKey(User)
-    shortcut = models.CharField(max_length=50)
+    shortcut = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=50)
     full_link = models.CharField(max_length=300)
     description = models.TextField(blank=True)

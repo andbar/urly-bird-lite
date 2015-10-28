@@ -19,6 +19,7 @@
     <div>
       <ul class="nav navbar-nav">
           {% if not request.user.id %}
+              <li><a href="{% url 'create_user' %}">Create a User</a></li>
               <li><a href="{% url 'login' %}">Login</a></li>
           {% else %}
               <li><a href="{% url 'user_bookmark_list' request.user.id %}">{{ request.user.username }}'s Bookmarks</a></li>

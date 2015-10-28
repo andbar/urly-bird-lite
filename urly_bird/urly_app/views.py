@@ -1,4 +1,6 @@
 import hashlib
+import random
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -24,6 +26,16 @@ class UserBookmarkList(ListView):
         return self.model.objects.filter(creator__id=user_id)
 
 
+class UserCreate(CreateView):
+    model = User
+    fields = ["username", "password"]
+    success_url = "/"
+
+    def form_valid(self, form):
+        model = form.save(commit=False)
+        return super().form_valid(form)
+
+
 class BookmarkCreate(CreateView):
     model = Bookmark
     fields = ["title", "full_link", "description"]
@@ -33,7 +45,7 @@ class BookmarkCreate(CreateView):
         model = form.save(commit=False)
         model.creator = self.request.user
         full_link = form.instance.full_link
-        model.shortcut = hashlib.md5(full_link.encode('utf-8')).hexdigest()[:10]
+        model.shortcut = hashlib.md5(full_link.encode('utf-8')).hexdigest()[:random.randint(5, 32)]
         return super().form_valid(form)
 
 
