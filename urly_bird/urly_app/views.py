@@ -41,8 +41,8 @@ class BookmarkCreate(CreateView):
     def form_valid(self, form):
         model = form.save(commit=False)
         model.creator = self.request.user
-        full_link = form.instance.full_link
-        model.shortcut = hashlib.md5(full_link.encode('utf-8')).hexdigest()[:random.randint(5, 32)]
+        full_link = form.instance.full_link + str(model.creator.id)
+        model.shortcut = hashlib.md5(full_link.encode('utf-8')).hexdigest()[:random.randint(5, 20)]
         return super().form_valid(form)
 
 
