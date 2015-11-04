@@ -56,14 +56,14 @@ class BookmarkDelete(View):
 
     def post(self, request, bookmark_id):
         Bookmark.objects.get(id=bookmark_id).delete()
-        return HttpResponseRedirect(reverse("user_bookmark_list", kwargs={'pk':request.user.id}))
+        return HttpResponseRedirect(reverse("user_bookmark_list", kwargs={'pk': request.user.id}))
 
 
 class UserIndex(View):
 
     def get(self, request):
         user = request.user.id
-        return HttpResponseRedirect(reverse("user_bookmark_list", kwargs={'pk':user}))
+        return HttpResponseRedirect(reverse("user_bookmark_list", kwargs={'pk': user}))
 
 
 class ClickShortcut(View):

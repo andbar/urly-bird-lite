@@ -14,6 +14,11 @@ class Bookmark(models.Model):
     class Meta:
         ordering = ["-created"]
 
+    @property
+    def num_clicks(self):
+        clicks = Click.objects.filter(bookmark=self)
+        return clicks.count()
+
     def __str__(self):
         return self.title
 

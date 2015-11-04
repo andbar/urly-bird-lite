@@ -27,8 +27,13 @@ urlpatterns = [
     url(r'^createbookmark/$', login_required(BookmarkCreate.as_view()), name="bookmark_create"),
     url(r'^c/(?P<bookmark_shortcut>.+)/$', ClickShortcut.as_view(), name="click_shortcut"),
     url(r'^index/$', UserIndex.as_view(), name="user_index"),
-    url(r'^delete/(?P<bookmark_id>\d+)/$', BookmarkDelete.as_view(), name="delete_bookmark"),
+    url(r'^delete/(?P<bookmark_id>\d+)/$', login_required(BookmarkDelete.as_view()), name="delete_bookmark"),
     url(r'^(?P<pk>\d+)/$', BookmarkDetail.as_view(), name="bookmark_detail"),
     url(r'^updatebookmark/(?P<pk>\d+)/$', login_required(BookmarkUpdate.as_view()), name="update_bookmark"),
     url(r'^createuser/$', UserCreate.as_view(), name="create_user"),
+    url(r'^api/', include('api.urls')),
+]
+
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
