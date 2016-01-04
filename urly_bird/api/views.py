@@ -14,7 +14,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'password']
 
 
 class BookmarkSerializer(ModelSerializer):
@@ -26,6 +26,7 @@ class BookmarkSerializer(ModelSerializer):
 
 
 class ClickSerializer(ModelSerializer):
+    clicker = ReadOnlyField(source='clicker.username')
 
     class Meta:
         model = Click
@@ -71,6 +72,12 @@ class BookmarkDetailView(RetrieveUpdateDestroyAPIView):
 class ClickListView(ListCreateAPIView):
     queryset = Click.objects.all()
     serializer_class = ClickSerializer
+
+    def perform_create(self, serializer):
+        if self.request.user:
+            serializer.save(clicker=self.request.user)
+        else:
+            serializer.save(clicker=None)
 
 
 class ClickDetailView(RetrieveAPIView):
