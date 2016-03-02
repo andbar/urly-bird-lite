@@ -71,3 +71,4 @@ target/
 .direnv/
 .idea/
 urly_bird/.idea/
+urly_bird/db.sqlite3
