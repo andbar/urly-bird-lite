@@ -15,6 +15,9 @@
             </h5>
         </div>
         <div class="panel-body">
+            <div>
+                <p>Total Clicks: {{ bookmark.num_clicks }}</p>
+            </div>
             {% if request.user.id == bookmark.creator.id %}
                 <div class="button-group">
                 <form action="{% url 'update_bookmark' bookmark.id %}" method="get">
