@@ -14,7 +14,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password']
+        fields = ['id', 'username']
 
 
 class BookmarkSerializer(ModelSerializer):
